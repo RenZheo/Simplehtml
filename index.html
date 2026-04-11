@@ -4,23 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        :root {
+            color-scheme: light dark;
+            --bg-color: #ffffff;
+            --text-color: #222222;
+            --border-color: #dddddd;
+            --header-bg: #f2f2f2;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --text-color: #f1f1f1;
+                --border-color: #444444;
+                --header-bg: #2a2a2a;
+            }
+        }
+
+        :root[data-theme="light"] {
+            --bg-color: #ffffff;
+            --text-color: #222222;
+            --border-color: #dddddd;
+            --header-bg: #f2f2f2;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #f1f1f1;
+            --border-color: #444444;
+            --header-bg: #2a2a2a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
+            background-color: var(--bg-color);
         }
         th, td {
-            border: 1px solid #dddddd;
+            border: 1px solid var(--border-color);
             text-align: left;
             padding: 8px;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: var(--header-bg);
         }
     </style>
     <title>附魔列表</title>
 </head>
 <body>
     <h2>附魔列表</h2>
+
+    <label for="themeMode">背景主題：</label>
+    <select id="themeMode" onchange="setThemeMode(this.value)">
+        <option value="auto">依照瀏覽器</option>
+        <option value="light">白色背景</option>
+        <option value="dark">黑色背景</option>
+    </select>
 
     <label for="filter">篩選適用對象：</label>
     <select id="filter" onchange="filterTable()">
@@ -63,6 +107,21 @@
     </table>
 
     <script>
+        function setThemeMode(mode) {
+            if (mode === "auto") {
+                document.documentElement.removeAttribute("data-theme");
+            } else {
+                document.documentElement.setAttribute("data-theme", mode);
+            }
+            localStorage.setItem("themeMode", mode);
+        }
+
+        function loadThemeMode() {
+            var savedMode = localStorage.getItem("themeMode") || "auto";
+            document.getElementById("themeMode").value = savedMode;
+            setThemeMode(savedMode);
+        }
+
         function filterTable() {
             var filter = document.getElementById("filter").value;
             var table = document.getElementById("enchantmentTable");
@@ -80,6 +139,8 @@
                 }
             }
         }
+
+        loadThemeMode();
     </script>
 </body>
 </html>
