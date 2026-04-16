@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>附魔表搜尋</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #ffffff;
+      --fg: #111111;
+      --muted: #555555;
+      --line: #d9d9d9;
+      --surface: #f6f6f6;
+      --surface-2: #ffffff;
+      --accent: #111111;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0f0f10;
+      --fg: #f5f5f5;
+      --muted: #c9c9c9;
+      --line: #303033;
+      --surface: #1a1a1c;
+      --surface-2: #141416;
+      --accent: #f5f5f5;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      letter-spacing: 0.03em;
+    }
+
+    .sub {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .search-wrap {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    input[type="search"] {
+      flex: 1 1 260px;
+      min-width: 180px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+      background: var(--surface-2);
+      color: var(--fg);
+      font-size: 1rem;
+    }
+
+    .theme-box,
+    .adv-box {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 0.7rem 0.8rem;
+    }
+
+    .theme-title,
+    .adv-title {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .theme-options {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    label {
+      display: inline-flex;
+      gap: 0.35rem;
+      align-items: center;
+      font-size: 0.95rem;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .stats {
+      margin: 0.7rem 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .table-wrap {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: auto;
+      max-height: 72vh;
+      background: var(--surface-2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 860px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      padding: 0.62rem 0.58rem;
+      vertical-align: top;
+      line-height: 1.45;
+      font-size: 0.94rem;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--surface);
+      font-weight: 700;
+    }
+
+    tr:hover td {
+      background: color-mix(in srgb, var(--surface) 55%, transparent);
+    }
+
+    .pill {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.82rem;
+      margin-left: 0.35rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .adv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    details.multi {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+
+    details.multi > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.55rem 0.65rem;
+      font-size: 0.92rem;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    details.multi > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-count {
+      color: var(--muted);
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .multi-options {
+      max-height: 210px;
+      overflow: auto;
+      border-top: 1px solid var(--line);
+      padding: 0.4rem 0.55rem;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .adv-actions {
+      margin-top: 0.55rem;
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        padding: 0.8rem;
+      }
+
+      th,
+      td {
+        font-size: 0.88rem;
+        padding: 0.55rem 0.48rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>附魔表搜尋</h1>
+    <p class="sub">搜尋固定為全域搜尋。若有設定進階篩選，會先篩選資料，再於結果中全域搜尋。</p>
+
+    <section class="controls" aria-label="搜尋與篩選控制區">
+      <div class="search-wrap">
+        <input id="searchInput" type="search" placeholder="輸入關鍵字，例如：劍、玩家、Legendary" />
+        <input id="csvFileInput" type="file" accept=".csv,text/csv" />
+      </div>
+
+      <div class="adv-box">
+        <div class="adv-title">進階篩選（每個標籤可單選/複選）</div>
+        <div class="adv-grid">
+          <details class="multi" id="dropdownApplyTo">
+            <summary>
+              <span>作用於</span>
+              <span class="summary-count" data-count-for="作用於">未選擇</span>
+            </summary>
+            <div class="multi-options" data-options-for="作用於"></div>
+          </details>
+
+          <details class="multi" id="dropdownTarget">
+            <summary>
+              <span>作用目標</span>
+              <span class="summary-count" data-count-for="作用目標">未選擇</span>
+            </summary>
+            <div class="multi-options" data-options-for="作用目標"></div>
+          </details>
+
+          <details class="multi" id="dropdownRarity">
+            <summary>
+              <span>稀有度</span>
+              <span class="summary-count" data-count-for="稀有度">未選擇</span>
+            </summary>
+            <div class="multi-options" data-options-for="稀有度"></div>
+          </details>
+        </div>
+        <div class="adv-actions">
+          <button id="clearAdvBtn" type="button">清除進階篩選</button>
+        </div>
+      </div>
+
+      <div class="theme-box">
+        <div class="theme-title">配色模式</div>
+        <div class="theme-options">
+          <label><input type="radio" name="theme" value="auto" checked />自動（跟隨系統）</label>
+          <label><input type="radio" name="theme" value="light" />淺色</label>
+          <label><input type="radio" name="theme" value="dark" />深色</label>
+        </div>
+      </div>
+    </section>
+
+    <p class="stats" id="stats"></p>
+
+    <section class="table-wrap" aria-label="附魔資料表">
+      <table>
+        <thead>
+          <tr>
+            <th>附魔</th>
+            <th>作用於</th>
+            <th>作用目標</th>
+            <th>描述</th>
+            <th>稀有度</th>
+            <th>最高等級</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const CSV_PATH = "./Advanced enchantments.csv";
+    const REQUIRED_HEADERS = ["附魔", "作用於", "作用目標", "描述", "稀有度", "最高等級"];
+
+    const searchInput = document.getElementById("searchInput");
+    const tbody = document.getElementById("tbody");
+    const stats = document.getElementById("stats");
+    const clearAdvBtn = document.getElementById("clearAdvBtn");
+    const csvFileInput = document.getElementById("csvFileInput");
+    const advFields = ["作用於", "作用目標", "稀有度"];
+    const advOptionHolders = advFields.map(f => document.querySelector(`[data-options-for='${f}']`));
+    const themeRadios = [...document.querySelectorAll("input[name='theme']")];
+
+    let rows = [];
+
+    function parseCSV(text) {
+      const out = [];
+      let row = [];
+      let cell = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        const next = text[i + 1];
+
+        if (ch === '"') {
+          if (inQuotes && next === '"') {
+            cell += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+          continue;
+        }
+
+        if (!inQuotes && ch === ",") {
+          row.push(cell);
+          cell = "";
+          continue;
+        }
+
+        if (!inQuotes && (ch === "\n" || ch === "\r")) {
+          if (ch === "\r" && next === "\n") i++;
+          row.push(cell);
+          const nonEmpty = row.some(v => v !== "");
+          if (nonEmpty) out.push(row);
+          row = [];
+          cell = "";
+          continue;
+        }
+
+        cell += ch;
+      }
+
+      if (cell.length > 0 || row.length > 0) {
+        row.push(cell);
+        const nonEmpty = row.some(v => v !== "");
+        if (nonEmpty) out.push(row);
+      }
+
+      return out;
+    }
+
+    function pickDecode(buffer) {
+      const utf8 = new TextDecoder("utf-8").decode(buffer);
+      const utf8Bad = utf8.includes("�");
+      if (!utf8Bad) return utf8;
+
+      try {
+        const big5 = new TextDecoder("big5").decode(buffer);
+        return big5;
+      } catch {
+        return utf8;
+      }
+    }
+
+    function toObjects(records) {
+      if (records.length === 0) return [];
+      const headers = records[0].map(h => h.trim());
+      const headerIndex = Object.fromEntries(headers.map((h, i) => [h, i]));
+
+      for (const key of REQUIRED_HEADERS) {
+        if (!(key in headerIndex)) {
+          throw new Error(`CSV 缺少必要欄位：${key}`);
+        }
+      }
+
+      return records.slice(1).map(r => {
+        const obj = {};
+        for (const key of REQUIRED_HEADERS) {
+          obj[key] = (r[headerIndex[key]] ?? "").trim();
+        }
+        return obj;
+      });
+    }
+
+    function getAdvancedSelections() {
+      const out = {};
+      for (const f of advFields) {
+        const selected = [...document.querySelectorAll(`[data-adv-field='${f}']:checked`)].map(i => i.value);
+        out[f] = selected;
+      }
+      return out;
+    }
+
+    function updateAdvCounts() {
+      for (const f of advFields) {
+        const selectedCount = document.querySelectorAll(`[data-adv-field='${f}']:checked`).length;
+        const countNode = document.querySelector(`[data-count-for='${f}']`);
+        if (!countNode) continue;
+        countNode.textContent = selectedCount === 0 ? "未選擇" : `已選 ${selectedCount}`;
+      }
+    }
+
+    function buildAdvancedFilters() {
+      for (const holder of advOptionHolders) {
+        if (holder) holder.innerHTML = "";
+      }
+
+      for (const f of advFields) {
+        const holder = document.querySelector(`[data-options-for='${f}']`);
+        if (!holder) continue;
+
+        const values = [...new Set(rows.map(r => r[f]).filter(v => v !== ""))].sort((a, b) => a.localeCompare(b, "zh-Hant"));
+        for (const value of values) {
+          const label = document.createElement("label");
+          label.innerHTML = `<input type="checkbox" data-adv-field="${escapeAttr(f)}" value="${escapeAttr(value)}" />${escapeHtml(value)}`;
+          holder.appendChild(label);
+        }
+      }
+
+      document.querySelectorAll("[data-adv-field]").forEach(input => {
+        input.addEventListener("change", () => {
+          updateAdvCounts();
+          render();
+        });
+      });
+
+      updateAdvCounts();
+    }
+
+    function filterRows() {
+      const query = searchInput.value.trim().toLowerCase();
+      const advSelected = getAdvancedSelections();
+
+      return rows.filter(row => {
+        for (const f of advFields) {
+          const selected = advSelected[f];
+          if (selected.length > 0 && !selected.includes(String(row[f] ?? ""))) {
+            return false;
+          }
+        }
+
+        if (!query) return true;
+        return REQUIRED_HEADERS.some(field => String(row[field] ?? "").toLowerCase().includes(query));
+      });
+    }
+
+    function render() {
+      const filtered = filterRows();
+      tbody.innerHTML = "";
+
+      for (const row of filtered) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${escapeHtml(row["附魔"])}</td>
+          <td>${escapeHtml(row["作用於"])}</td>
+          <td>${escapeHtml(row["作用目標"])}</td>
+          <td>${escapeHtml(row["描述"])}</td>
+          <td>${escapeHtml(row["稀有度"])}</td>
+          <td>${escapeHtml(row["最高等級"])}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      const advSelected = getAdvancedSelections();
+      const advActive = advFields
+        .map(f => ({ f, vals: advSelected[f] }))
+        .filter(item => item.vals.length > 0)
+        .map(item => `${item.f}: ${item.vals.join("、")}`)
+        .join(" | ");
+      const advText = advActive ? advActive : "無";
+      stats.innerHTML = `目前顯示 <strong>${filtered.length}</strong> / ${rows.length} 筆 <span class="pill">搜尋範圍：全域</span><span class="pill">進階篩選：${escapeHtml(advText)}</span>`;
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(text) {
+      return String(text).replaceAll("&", "&amp;").replaceAll('"', "&quot;");
+    }
+
+    function applyTheme(mode) {
+      const root = document.documentElement;
+      if (mode === "auto") {
+        localStorage.setItem("enchantTheme", "auto");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        root.setAttribute("data-theme", prefersDark ? "dark" : "light");
+        return;
+      }
+      localStorage.setItem("enchantTheme", mode);
+      root.setAttribute("data-theme", mode);
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem("enchantTheme") || "auto";
+      const radio = themeRadios.find(r => r.value === saved) || themeRadios[0];
+      radio.checked = true;
+      applyTheme(saved);
+
+      for (const r of themeRadios) {
+        r.addEventListener("change", () => applyTheme(r.value));
+      }
+
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+        const current = localStorage.getItem("enchantTheme") || "auto";
+        if (current === "auto") applyTheme("auto");
+      });
+    }
+
+    async function load() {
+      searchInput.addEventListener("input", render);
+
+      clearAdvBtn.addEventListener("click", () => {
+        document.querySelectorAll("[data-adv-field]").forEach(i => {
+          i.checked = false;
+        });
+        updateAdvCounts();
+        render();
+      });
+
+      csvFileInput.addEventListener("change", async () => {
+        const file = csvFileInput.files && csvFileInput.files[0];
+        if (!file) return;
+        const buffer = await file.arrayBuffer();
+        const text = pickDecode(buffer);
+        const records = parseCSV(text);
+        rows = toObjects(records);
+        buildAdvancedFilters();
+        render();
+      });
+
+      try {
+        const resp = await fetch(CSV_PATH);
+        if (!resp.ok) throw new Error(`無法載入 CSV：${resp.status}`);
+        const buffer = await resp.arrayBuffer();
+        const text = pickDecode(buffer);
+        const records = parseCSV(text);
+        rows = toObjects(records);
+        buildAdvancedFilters();
+        render();
+      } catch {
+        tbody.innerHTML = "<tr><td colspan=\"6\" class=\"muted\">自動載入失敗，請使用上方的檔案選擇器手動載入 CSV。</td></tr>";
+        stats.textContent = "若你是直接雙擊開啟 HTML，這是瀏覽器限制的正常現象。";
+      }
+    }
+
+    initTheme();
+
+    load().catch(err => {
+      tbody.innerHTML = `<tr><td colspan="6" class="muted">初始化失敗：${escapeHtml(err.message)}</td></tr>`;
+      stats.textContent = "請重新整理頁面，或使用檔案選擇器手動載入 CSV。";
+      console.error(err);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+附魔,作用於,作用目標,描述,稀有度,最高等級
+Abiding,武器,自身/環境,擁有此附魔的武器將變為無法損毀。,Legendary,1
+Aegis,靴子,自身/環境,受到掉落傷害時，有機率獲得速度加成。,Ultimate,3
+Allure,劍,生物,你的攻擊會將生物拉向你。,Elite,3
+Ambit,劍、斧頭,生物,對半徑範圍內的生物造成傷害，範圍隨附魔等級增加。,Ultimate,7
+Angelic,盔甲,自身/環境,受傷時恢復生命值。,Ultimate,5
+Auto Reel,釣竿,自身/環境,當有魚上鉤時，自動收回魚竿。,Ultimate,4
+Aqua,靴子,通用實體,在水中時造成雙倍傷害。,Legendary,4
+Aquatic,頭盔,自身/環境,在水下呼吸。,Simple,1
+Archer,弓,通用實體,增加弓箭造成的傷害。,Ultimate,4
+Armored,盔甲,通用實體,每等級減少 2% 來自敵方劍類的傷害。,Legendary,4
+Arrow Break,斧頭,通用實體,手持此附魔物品時，有機率使箭矢反彈。,Ultimate,6
+Arrow Deflect,盔甲,通用實體,有機率防止敵方箭矢造成傷害。,Ultimate,4
+Axe of Spirits,斧頭,玩家,擊殺玩家時有機率獲得更多靈魂。,Fabled,3
+Bait,釣竿,自身/環境,釣魚時有機率獲得雙倍掉落物。,Legendary,3
+Barbarian,斧頭,通用實體,有機率造成更高的斧頭傷害。,Legendary,4
+Beastslayer,劍、斧頭,生物,增加對敵對生物造成的傷害。,Legendary,4
+Berserk,劍、斧頭,自身/環境,有機率獲得力量效果，但會產生挖掘疲勞。,Unique,5
+Blacksmith,斧頭,自身/環境,修復你的武器，代價是降低造成的傷害。,Legendary,5
+Bleed,斧頭,通用實體,使你的對手流血。,Ultimate,6
+Blind,劍,通用實體,攻擊時有機率造成失明效果。,Elite,3
+Block,劍,通用實體,有機率抵消攻擊，並反彈最高 4 點傷害。,Ultimate,3
+Blunt Force,斧頭,通用實體,有機率以強大的力量擊打。,Elite,4
+Bone Crusher,劍、斧頭,生物,增加對骷髏造成的傷害。,Simple,3
+Bowmaster,弓、弩、三叉戟,玩家,對被擊中時正手持劍的玩家造成倍增傷害。,Elite,5
+Carrot Planter,鋤頭,自身/環境,Shift+右鍵點擊可在 3x3 區域內種植胡蘿蔔。,Simple,3
+Chaos,三叉戟,通用實體,造成虛弱與凋零效果。,Legendary,5
+Chunky,胸甲,自身/環境,有機率減少受到的傷害。,Legendary,6
+Cleave,斧頭,玩家,對半徑範圍內的玩家造成傷害，範圍隨附魔等級增加。,Ultimate,7
+Confuse,劍,通用實體,有機率造成噁心效果。,Ultimate,4
+Convulse,靴子,通用實體,有機率將攻擊者拋向空中。,Legendary,6
+Creeper Armor,盔甲,自身/環境,有機率免疫爆炸傷害，高等級時有機率恢復生命值。,Ultimate,3
+Critical,劍,通用實體,增加暴擊造成的傷害。,Elite,3
+Curse,盔甲,通用實體,有機率使敵人產生挖掘疲勞。,Elite,2
+Deadshot,三叉戟,通用實體,使用三叉戟爆頭可造成雙倍傷害。,Legendary,5
+Death Punch,劍、斧頭,生物,增加對殭屍造成的傷害。,Simple,5
+Decapitation,劍、斧頭,通用實體,擊殺時有機率掉落對手的頭顱。,Simple,3
+Deranged,劍,玩家,對附近的玩家召喚雷擊。,Legendary,3
+Devour,武器,生物,擊殺生物時有機率恢復飢餓值。,Unique,3
+Diminish,斧頭,通用實體,有機率使敵人產生挖掘疲勞。,Ultimate,1
+Diploid,劍,生物,有機率使生物掉落物倍增。每次觸發消耗 5 個靈魂。,Fabled,5
+Disappear,盔甲,自身/環境,生命值較低時有機率隱形。,Ultimate,4
+Disarm,劍,玩家,有機率繳械對手。,Fabled,3
+Disarmor,劍,玩家,有機率隨機卸下對手的一件盔甲。,Legendary,8
+Disintegrate,劍,玩家,每次攻擊都有機率對敵方的所有盔甲造成額外耐久度傷害。,Ultimate,4
+Distance,武器,通用實體,有機率與敵人拉開距離並獲得再生效果。,Ultimate,4
+Divert,盔甲,通用實體,有機率使對手中毒並使自己獲得再生效果。,Legendary,5
+Dodge,盔甲,通用實體,有機率閃避物理攻擊，潛行時機率增加。,Ultimate,5
+Double Strike,劍,通用實體,有機率連續打擊兩次。,Legendary,3
+Ender Slayer,武器,生物,增加對終界使者與終界龍造成的傷害。,Elite,5
+Endmaster,劍,生物,對終界的生物造成雙倍傷害。,Ultimate,3
+Epicness,劍,自身/環境,攻擊時顯示粒子效果。,Simple,3
+Exalted,劍,自身/環境,有機率移除負面藥水效果。,Ultimate,4
+Experience,工具,自身/環境,從礦石中獲得更多經驗值的機率。,Simple,5
+Explosive,弓,自身/環境,箭矢有機率產生爆炸。,Unique,5
+Explosive Demise,護腿,通用實體,瀕死時召喚苦力怕作為守衛。,Unique,8
+Extinguish,護腿,自身/環境,著火時有機率自動滅火。,Elite,3
+Famine,武器,玩家,有機率使對手產生飢餓效果。,Unique,4
+Featherweight,劍、斧頭,自身/環境,有機率獲得短暫的急迫效果。,Unique,3
+Forcefield,劍,通用實體,有機率擊退對手。,Simple,5
+Frenzy,弩,自身/環境,箭矢有機率產生爆炸。,Unique,5
+Frozen,盔甲,通用實體,防禦時有機率使攻擊者產生緩速效果。,Elite,3
+Fire Hook,釣竿,自身/環境,魚鉤帶有火焰。,Elite,3
+Fuddle,劍,玩家,擾亂對手的快捷列。,Ultimate,3
+Fumble,胸甲,通用實體,被敵方箭矢射中時有機率使敵人爆炸。,Legendary,3
+Gears,靴子,自身/環境,裝備時增加移動速度。,Legendary,3
+Glowing,頭盔,自身/環境,獲得永久夜視效果。,Simple,1
+Greatsword,劍,玩家,對被擊中時正手持弓的玩家造成倍增傷害。,Elite,5
+Guardians,盔甲,通用實體,有機率召喚鐵魔像協助並守護你。,Ultimate,10
+Hardened,盔甲,玩家,受到玩家傷害時有機率恢復耐久度。,Legendary,3
+Haste,工具,自身/環境,允許你更快地揮動工具。,Fabled,3
+Hasten,工具,自身/環境,破壞方塊後有機率獲得急迫效果。,Simple,3
+Heavy,盔甲,通用實體,每等級減少 2% 來自敵方弓箭的傷害。,Ultimate,5
+Hellfire,弓,自身/環境,箭矢變為火球。,Ultimate,5
+Hook,釣竿,自身/環境,釣魚時獲得更多經驗值。,Elite,3
+Hook,釣竿,自身/環境,釣魚時有機率增加幸運值。,Ultimate,3
+Hunter,弓、弩、三叉戟,生物,增加對被動生物造成的傷害。,Unique,4
+Ice Aspect,劍,通用實體,有機率對敵人造成緩速效果。,Ultimate,3
+Immolate,劍、斧頭,生物,增加對蜘蛛造成的傷害。,Elite,3
+Immolation,劍,生物,使半徑範圍內的所有生物著火。,Ultimate,3
+Immortal,盔甲,自身/環境,有機率防止盔甲受到耐久度傷害。,Fabled,4
+Impact,三叉戟,通用實體,有機率使造成的傷害加倍。,Elite,4
+Implants,頭盔,自身/環境,每隔幾秒有機率恢復飢餓值。,Ultimate,3
+Infernal,劍、斧頭,自身/環境,爆炸火焰效果。,Elite,3
+Inflame,斧頭,玩家,使半徑範圍內的所有玩家著火。,Legendary,3
+Inquisitive,劍,生物,有機率增加生物掉落的經驗值。,Legendary,4
+Interrupt,劍,通用實體,有機率使敵人產生挖掘疲勞。,Ultimate,2
+Jelly Legs,靴子,自身/環境,有機率抵消掉落傷害。,Ultimate,3
+Judgement,鞘翅,通用實體,有機率使對手中毒並使自己獲得再生效果。,Legendary,5
+Kill Aura,劍,生物,有機率擊殺半徑範圍內的多個怪物。,Legendary,5
+Launch,劍,自身/環境,右鍵點擊可將自己發射出去。,Legendary,3
+Lava Walker,靴子,自身/環境,在岩漿上行走。,Legendary,1
+Lifesteal,劍,通用實體,攻擊時有機率竊取生命值。,Legendary,5
+Longbow,弓,玩家,大幅增加對手持弓之玩家造成的傷害。,Ultimate,4
+Lucid,盔甲,自身/環境,被擊中時有機率治癒失明並獲得夜視效果。,Legendary,3
+Magnet,劍,玩家,你的攻擊會將玩家拉向你。,Elite,3
+Marksman,弩,通用實體,增加弩造成的傷害。,Elite,4
+Missile,弩,自身/環境,箭矢變為火球。,Elite,5
+Molten,盔甲,通用實體,有機率使攻擊者著火。,Unique,4
+Momentum,鞘翅,自身/環境,使用煙火時有機率獲得速度加成。,Elite,3
+Multiplication,鎬,自身/環境,有機率使礦石掉落物倍增。每次觸發消耗 5 個靈魂。,Fabled,5
+Nether Slayer,武器,生物,增加對下界生物造成的傷害。,Elite,5
+Netherling,劍,生物,對下界的生物造成雙倍傷害。,Ultimate,3
+Neutralize,弓、弩,玩家,有機率繳械對手。,Fabled,2
+Night Owl,劍,生物,夜晚時對生物造成更多傷害。,Ultimate,1
+Nightwalker,劍,生物,夜晚時凍結生物。,Elite,3
+Nulify,護腿,通用實體,有機率反射攻擊並使傷害倍增。每次觸發消耗 40 個靈魂。,Fabled,3
+Obsidianshield,盔甲,自身/環境,給予永久抗火效果。,Ultimate,1
+Overload,盔甲,自身/環境,解鎖額外血量。,Legendary,3
+Paralyze,劍、斧頭,通用實體,給予雷擊效果，並有機率造成緩速與攻擊速度減慢。,Elite,4
+Patch,盔甲,生物,受到生物傷害時有機率恢復耐久度。,Legendary,3
+Perish,弓、弩、三叉戟,通用實體,有機率給予凋零效果。,Unique,5
+Permafrost,劍,通用實體,有機率使對手緩速並流血。,Ultimate,5
+Phoenix,胸甲,自身/環境,被殺死時有機率復活。,Fabled,3
+Piercing,弓,通用實體,造成更多傷害。,Ultimate,5
+Planter,鋤頭,自身/環境,Shift+右鍵點擊可在 3x3 區域內種植種子。,Ultimate,3
+Plummet,靴子,生物,受到掉落傷害時對附近生物造成傷害。,Ultimate,3
+Poison,劍、斧頭,通用實體,有機率給予中毒效果。,Elite,3
+Poisoned Hook,釣竿,通用實體,使魚鉤帶毒。,Elite,3
+Poisoned,盔甲,通用實體,有機率使攻擊者中毒。,Elite,4
+Poseidon,三叉戟,通用實體,增加三叉戟造成的傷害。,Elite,4
+Potato Planter,鋤頭,自身/環境,Shift+右鍵點擊可在 3x3 區域內種植馬鈴薯。,Simple,3
+Ragdoll,盔甲,通用實體,被擊中時有機率被擊退。,Ultimate,4
+Ravenous,劍、斧頭,玩家,戰鬥時有機率恢復飢餓值。,Unique,4
+Reaper,斧頭,通用實體,造成傷害時有機率給予對手凋零與失明效果。,Elite,4
+Rebound,武器,通用實體,擊殺後恢復部分生命值。,Legendary,3
+Rebreather,鎬,自身/環境,在水下挖掘時有機率恢復氧氣。,Simple,2
+Reflect,盔甲,通用實體,吸收敵方傷害並將其反彈。,Unique,5
+Reforged,武器與工具,自身/環境,保護武器與工具的耐久度，使物品更耐用。,Elite,10
+Reinforced,鞘翅,自身/環境,減少受到的傷害。,Ultimate,4
+Replanter,鋤頭,自身/環境,收割作物時自動重新種植。,Unique,1
+Replenish,鎬,自身/環境,挖掘時有機率恢復飢餓值。,Elite,3
+Restore,工具,自身/環境,物品損毀時，有機率失去此附魔並修復一半的耐久度。,Fabled,4
+Rocket Escape,靴子,自身/環境,低生命值時噴射至空中。,Elite,3
+Rush,鞘翅,自身/環境,使用鞘翅起飛時有機率獲得速度加成。每次觸發消耗 10 個靈魂。,Fabled,3
+Safeguard,盔甲,自身/環境,防禦時有機率獲得抗性提升。,Ultimate,2
+Scare,武器,玩家,有機率短時間內將對手的頭盔替換為南瓜。,Fabled,5
+Shatter,斧頭,玩家,每次攻擊都有機率對敵方的所有盔甲造成額外耐久度傷害。,Ultimate,4
+Sharpness Hook,釣竿,通用實體,使用魚鉤造成傷害。,Ultimate,1
+Shockwave,胸甲,通用實體,生命值較低時有機率擊退攻擊者。,Elite,5
+Slayer,劍、斧頭,生物,增加對被動生物造成的傷害。,Unique,4
+Slingshot,鞘翅,自身/環境,右鍵點擊可助推飛行。,Legendary,3
+Smelting,鎬,自身/環境,有機率熔煉挖掘的方塊。,Simple,3
+Smoke Bomb,頭盔,通用實體,瀕死時會產生煙霧彈以分散敵人注意力。,Elite,8
+Snap,釣竿,通用實體,將被擊中的實體拉向你。,Elite,3
+Snare,弓,通用實體,投射物有機率使敵人緩速與疲勞。,Elite,4
+Sniper,弓,通用實體,使用弓爆頭可造成雙倍傷害。,Ultimate,5
+Soulbound,武器、工具、弓,自身/環境,死亡時有機率保留物品。,Fabled,3
+Soulgrind,劍,生物,擊殺生物時有機率獲得靈魂。,Fabled,3
+Soulless,弓、弩、三叉戟,生物,增加對敵對生物造成的傷害。,Unique,4
+Soulminer,鎬,自身/環境,挖掘時有機率獲得靈魂。,Fabled,3
+Spark,三叉戟,通用實體,點燃對手。,Elite,3
+Spiritmaster,劍,玩家,擊殺玩家時有機率獲得更多靈魂。,Fabled,3
+Spirits,盔甲,通用實體,有機率召喚烈焰使者守衛。,Ultimate,10
+Springs,靴子,自身/環境,給予跳躍提升效果。,Elite,3
+Strife,三叉戟,通用實體,增加三叉戟的近戰傷害。,Legendary,3
+Strike,劍、弓、弩、三叉戟,通用實體,有機率對對手召喚雷擊。,Simple,3
+Striker,弓,通用實體,對手上方降下箭雨。,Ultimate,3
+Suspend,劍,生物,有機率對生物不造成擊退。,Elite,3
+Swordsman,盔甲,通用實體,手持劍時有機率減少受到的傷害，最高等級可減少 22%。,Ultimate,5
+Tank,盔甲,通用實體,每等級減少 2% 來自敵方斧頭的傷害。,Ultimate,4
+Telepathy,工具,自身/環境,自動將工具破壞的方塊放入背包。,Unique,4
+Thunderlord,武器,生物,每連續命中 3 次即對怪物召喚雷擊。,Legendary,3
+Timber,斧頭,自身/環境,有機率一擊砍倒整棵樹。,Ultimate,3
+Trench,鎬、鏟子,自身/環境,有機率挖掘 3x3 區域。,Ultimate,9
+Trickster,盔甲,通用實體,被擊中時有機率直接傳送到對手身後。,Elite,8
+Turmoil,盔甲,玩家,有機率防止對手的守衛生成。,Legendary,3
+Twinge,三叉戟,通用實體,使用近戰攻擊命中時使敵人流血。,Legendary,4
+Unbreakable,工具,自身/環境,擁有此附魔的工具將變為無法損毀。,Fabled,1
+Undead Ruse,靴子,通用實體,被擊中時有機率召喚殭屍群以分散並擾亂對手。,Elite,10
+Unholy,盔甲,通用實體,防禦時造成虛弱與凋零效果。,Legendary,5
+Vampire,劍,自身/環境,命中後幾秒內有機率為你恢復最高 3 點生命值。,Elite,3
+Vein Miner,鎬,自身/環境,挖掘整條礦脈。,Elite,3
+Virus,弓、弩、三叉戟,通用實體,有機率給予中毒效果。,Unique,3
+Voodoo,盔甲,通用實體,有機率造成虛弱效果。,Elite,6
+Ward,盔甲,通用實體,有機率吸收敵方傷害。,Unique,4
+Water Walker,靴子,自身/環境,在水上行走。,Legendary,1
+Wings,靴子,自身/環境,穿著時允許飛行。,Legendary,1
+Wither,盔甲,通用實體,有機率給予凋零效果。,Elite,5
