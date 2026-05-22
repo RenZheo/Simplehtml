@@ -1,0 +1,4 @@
+這是一個資源分享範例檔案。
+
+之後可以把真正要分享的檔案放到 downloads 資料夾，
+再到 resources.json 新增或修改 name、description、file。
