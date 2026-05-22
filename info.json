@@ -1,0 +1,16 @@
+[
+  {
+    "category": "公告",
+    "date": "2026-05-23",
+    "title": "資訊分享頁已建立",
+    "content": "之後要更新這個頁面，只需要修改 info.json。每一筆資料會顯示成一個獨立欄位。",
+    "points": [
+      "title 是標題",
+      "content 是主要文字",
+      "points 可放多行重點",
+      "link 和 linkText 可放外部或站內連結"
+    ],
+    "link": "",
+    "linkText": ""
+  }
+]

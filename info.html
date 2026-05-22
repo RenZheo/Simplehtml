@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>資訊分享</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #ffffff;
+      --fg: #111111;
+      --muted: #555555;
+      --line: #d9d9d9;
+      --surface: #f6f6f6;
+      --surface-2: #ffffff;
+      --accent: #111111;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0f0f10;
+      --fg: #f5f5f5;
+      --muted: #c9c9c9;
+      --line: #303033;
+      --surface: #1a1a1c;
+      --surface-2: #141416;
+      --accent: #f5f5f5;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .page-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: start;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0 0 0.45rem;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      letter-spacing: 0.03em;
+    }
+
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .home-btn:hover {
+      background: var(--surface-2);
+    }
+
+    .info-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .info-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+
+    .info-main {
+      padding: 0.9rem 1rem;
+    }
+
+    .info-meta {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.45rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.08rem 0.45rem;
+      background: var(--surface);
+    }
+
+    .info-title {
+      margin: 0 0 0.35rem;
+      font-size: 1.05rem;
+    }
+
+    .info-content {
+      margin: 0;
+      color: var(--fg);
+      line-height: 1.65;
+      white-space: pre-line;
+    }
+
+    .info-points {
+      margin: 0.65rem 0 0;
+      padding-left: 1.3rem;
+      line-height: 1.6;
+    }
+
+    .info-link {
+      display: inline-flex;
+      margin-top: 0.7rem;
+      color: var(--fg);
+      font-weight: 700;
+      text-underline-offset: 0.2rem;
+    }
+
+    .empty {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-2);
+      padding: 0.9rem 1rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="page-head">
+      <div>
+        <h1>資訊分享</h1>
+        <p class="sub">這裡會讀取 info.json。之後只要修改 JSON，就能一欄一欄更新頁面內容。</p>
+      </div>
+      <a class="home-btn" href="index.html" aria-label="返回主頁">⌂</a>
+    </header>
+
+    <section class="info-list" id="infoList" aria-label="資訊清單">
+      <p class="empty">資訊載入中...</p>
+    </section>
+  </main>
+
+  <script>
+    const INFO_PATH = "./info.json";
+    const infoList = document.getElementById("infoList");
+
+    function initTheme() {
+      const saved = localStorage.getItem("enchantTheme") || "auto";
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", saved === "auto" ? (prefersDark ? "dark" : "light") : saved);
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(text) {
+      return String(text).replaceAll("&", "&amp;").replaceAll('"', "&quot;");
+    }
+
+    function renderInfo(items) {
+      infoList.innerHTML = "";
+
+      if (!Array.isArray(items) || items.length === 0) {
+        infoList.innerHTML = '<p class="empty">尚未新增資訊。</p>';
+        return;
+      }
+
+      for (const item of items) {
+        const title = String(item.title ?? "").trim();
+        const content = String(item.content ?? "").trim();
+        const category = String(item.category ?? "").trim();
+        const date = String(item.date ?? "").trim();
+        const link = String(item.link ?? "").trim();
+        const linkText = String(item.linkText ?? "查看連結").trim();
+        const points = Array.isArray(item.points) ? item.points.map(point => String(point).trim()).filter(Boolean) : [];
+        if (!title && !content && points.length === 0) continue;
+
+        const article = document.createElement("article");
+        article.className = "info-item";
+        article.innerHTML = `
+          <div class="info-main">
+            <div class="info-meta">
+              ${category ? `<span class="tag">${escapeHtml(category)}</span>` : ""}
+              ${date ? `<span>${escapeHtml(date)}</span>` : ""}
+            </div>
+            ${title ? `<h2 class="info-title">${escapeHtml(title)}</h2>` : ""}
+            ${content ? `<p class="info-content">${escapeHtml(content)}</p>` : ""}
+            ${points.length ? `<ul class="info-points">${points.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ul>` : ""}
+            ${link ? `<a class="info-link" href="${escapeAttr(link)}">${escapeHtml(linkText || "查看連結")}</a>` : ""}
+          </div>
+        `;
+        infoList.appendChild(article);
+      }
+
+      if (!infoList.children.length) {
+        infoList.innerHTML = '<p class="empty">尚未新增可顯示的資訊。</p>';
+      }
+    }
+
+    async function loadInfo() {
+      try {
+        const resp = await fetch(INFO_PATH, { cache: "no-store" });
+        if (!resp.ok) throw new Error(`無法載入資訊清單：${resp.status}`);
+        renderInfo(await resp.json());
+      } catch {
+        infoList.innerHTML = '<p class="empty">尚未建立資訊清單，或目前無法載入。</p>';
+      }
+    }
+
+    initTheme();
+    loadInfo();
+  </script>
+</body>
+</html>
