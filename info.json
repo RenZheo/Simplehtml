@@ -2,8 +2,7 @@
   {
     "category": "公告",
     "date": "2026-05-23",
-    "title": "常駐測試伺服器",
-    "content": "1.8.9 IP：mc.zheo.dpdns.org",
+    "title": "常駐測試伺服器，1.8.9 IP：mc.zheo.dpdns.org",
     "content": "伺服器包含：",
     "points": [
       "登入自動取得OP",
