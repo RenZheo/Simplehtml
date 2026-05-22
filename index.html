@@ -210,6 +210,77 @@
       margin-top: 0.55rem;
     }
 
+    .resource-section {
+      margin-top: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+
+    .resource-head {
+      padding: 0.85rem 0.95rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .resource-head h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .resource-list {
+      display: grid;
+    }
+
+    .resource-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.8rem;
+      align-items: center;
+      padding: 0.85rem 0.95rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .resource-item:last-child {
+      border-bottom: 0;
+    }
+
+    .resource-name {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .resource-desc {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.25rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0 0.85rem;
+      background: var(--accent);
+      color: var(--bg);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .download-btn:hover {
+      opacity: 0.86;
+    }
+
+    .resource-empty {
+      padding: 0.85rem 0.95rem;
+    }
+
     @media (max-width: 760px) {
       .container {
         padding: 0.8rem;
@@ -219,6 +290,15 @@
       td {
         font-size: 0.88rem;
         padding: 0.55rem 0.48rem;
+      }
+
+      .resource-item {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .download-btn {
+        width: fit-content;
       }
     }
   </style>
@@ -293,10 +373,20 @@
         <tbody id="tbody"></tbody>
       </table>
     </section>
+
+    <section class="resource-section" aria-label="資源分享">
+      <div class="resource-head">
+        <h2>資源分享</h2>
+      </div>
+      <div class="resource-list" id="resourceList">
+        <p class="muted resource-empty">資源載入中...</p>
+      </div>
+    </section>
   </main>
 
   <script>
     const CSV_PATH = "./Advanced enchantments.csv";
+    const RESOURCES_PATH = "./resources.json";
     const REQUIRED_HEADERS = ["附魔", "作用於", "作用目標", "描述", "稀有度", "最高等級"];
 
     const searchInput = document.getElementById("searchInput");
@@ -304,6 +394,7 @@
     const stats = document.getElementById("stats");
     const clearAdvBtn = document.getElementById("clearAdvBtn");
     const csvFileInput = document.getElementById("csvFileInput");
+    const resourceList = document.getElementById("resourceList");
     const advFields = ["作用於", "作用目標", "稀有度"];
     const advOptionHolders = advFields.map(f => document.querySelector(`[data-options-for='${f}']`));
     const themeRadios = [...document.querySelectorAll("input[name='theme']")];
@@ -493,6 +584,48 @@
       return String(text).replaceAll("&", "&amp;").replaceAll('"', "&quot;");
     }
 
+    function renderResources(resources) {
+      resourceList.innerHTML = "";
+
+      if (!Array.isArray(resources) || resources.length === 0) {
+        resourceList.innerHTML = '<p class="muted resource-empty">尚未新增資源。</p>';
+        return;
+      }
+
+      for (const resource of resources) {
+        const name = String(resource.name ?? "").trim();
+        const description = String(resource.description ?? "").trim();
+        const file = String(resource.file ?? "").trim();
+        if (!name || !file) continue;
+
+        const item = document.createElement("article");
+        item.className = "resource-item";
+        item.innerHTML = `
+          <div>
+            <div class="resource-name">${escapeHtml(name)}</div>
+            <div class="resource-desc">${escapeHtml(description || "沒有描述")}</div>
+          </div>
+          <a class="download-btn" href="${escapeAttr(file)}" download>下載</a>
+        `;
+        resourceList.appendChild(item);
+      }
+
+      if (!resourceList.children.length) {
+        resourceList.innerHTML = '<p class="muted resource-empty">尚未新增可下載的資源。</p>';
+      }
+    }
+
+    async function loadResources() {
+      try {
+        const resp = await fetch(RESOURCES_PATH, { cache: "no-store" });
+        if (!resp.ok) throw new Error(`無法載入資源清單：${resp.status}`);
+        const resources = await resp.json();
+        renderResources(resources);
+      } catch {
+        resourceList.innerHTML = '<p class="muted resource-empty">尚未建立資源清單，或目前無法載入。</p>';
+      }
+    }
+
     function applyTheme(mode) {
       const root = document.documentElement;
       if (mode === "auto") {
@@ -523,6 +656,7 @@
 
     async function load() {
       searchInput.addEventListener("input", render);
+      loadResources();
 
       clearAdvBtn.addEventListener("click", () => {
         document.querySelectorAll("[data-adv-field]").forEach(i => {

@@ -1,0 +1,7 @@
+[
+  {
+    "name": "顯示工具",
+    "description": "把要分享的檔案放到 downloads 資料夾，並把 file 改成實際檔名。",
+    "file": "downloads/example.txt"
+  }
+]
