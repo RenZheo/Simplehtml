@@ -197,6 +197,88 @@
       white-space: nowrap;
     }
 
+    .summary-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .help-btn {
+      width: 1.2rem;
+      height: 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--fg);
+      font-size: 0.75rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .help-btn:hover {
+      background: var(--surface);
+    }
+
+    .help-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0);
+      z-index: 20;
+    }
+
+    .help-overlay[hidden] {
+      display: none;
+    }
+
+    .help-modal {
+      width: min(520px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-2);
+      color: var(--fg);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    .help-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .help-header h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .help-close {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-2);
+      color: var(--fg);
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .help-body {
+      padding: 0.85rem 0.95rem;
+      display: grid;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .help-body p {
+      margin: 0;
+    }
+
     .multi-options {
       max-height: 210px;
       overflow: auto;
@@ -328,7 +410,10 @@
           <details class="multi" id="dropdownTarget">
             <summary>
               <span>作用目標</span>
-              <span class="summary-count" data-count-for="作用目標">未選擇</span>
+              <span class="summary-right">
+                <span class="summary-count" data-count-for="作用目標">未選擇</span>
+                <button type="button" class="help-btn" id="targetHelpBtn" aria-label="作用目標分類說明">?</button>
+              </span>
             </summary>
             <div class="multi-options" data-options-for="作用目標"></div>
           </details>
@@ -384,6 +469,21 @@
     </section>
   </main>
 
+  <div class="help-overlay" id="targetHelp" aria-hidden="true" hidden>
+    <div class="help-modal" role="dialog" aria-modal="true" aria-labelledby="targetHelpTitle">
+      <div class="help-header">
+        <h3 id="targetHelpTitle">作用目標分類</h3>
+        <button type="button" class="help-close" aria-label="關閉說明">X</button>
+      </div>
+      <div class="help-body">
+        <p>玩家 (Player)：敘述明確指定 "Player"，或涉及玩家專屬機制（如破壞防具耐久、打亂快捷欄、扣除飢餓度）。</p>
+        <p>生物 (Mob)：敘述明確指定 "Mob"、"Monster"、"Passive/Hostile" 或特定怪物種類。</p>
+        <p>通用實體 (Entity)：敘述使用 "Enemy"、"Opponent"、"Attacker"，這類通常對玩家與生物皆有效（視伺服器 PvP/PvE 設定而定）。</p>
+        <p>自身/環境 (Self/Env)：提供自身增益（如跳躍、夜視）、防止掉落傷害，或是作用於方塊（挖礦、種植）與釣魚，不直接針對其他生命體。</p>
+      </div>
+    </div>
+  </div>
+
   <script>
     const CSV_PATH = "./Advanced enchantments.csv";
     const RESOURCES_PATH = "./resources.json";
@@ -398,6 +498,9 @@
     const advFields = ["作用於", "作用目標", "稀有度"];
     const advOptionHolders = advFields.map(f => document.querySelector(`[data-options-for='${f}']`));
     const themeRadios = [...document.querySelectorAll("input[name='theme']")];
+    const targetHelp = document.getElementById("targetHelp");
+    const targetHelpBtn = document.getElementById("targetHelpBtn");
+    const targetHelpClose = targetHelp?.querySelector(".help-close");
 
     let rows = [];
 
@@ -655,6 +758,34 @@
     }
 
     async function load() {
+      if (targetHelp && targetHelpBtn && targetHelpClose) {
+        const openHelp = () => {
+          targetHelp.hidden = false;
+          targetHelp.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+        };
+        const closeHelp = () => {
+          targetHelp.hidden = true;
+          targetHelp.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+        };
+
+        targetHelpBtn.addEventListener("click", event => {
+          event.preventDefault();
+          event.stopPropagation();
+          openHelp();
+        });
+
+        targetHelpClose.addEventListener("click", closeHelp);
+        targetHelp.addEventListener("click", event => {
+          if (event.target === targetHelp) closeHelp();
+        });
+
+        document.addEventListener("keydown", event => {
+          if (event.key === "Escape" && !targetHelp.hidden) closeHelp();
+        });
+      }
+
       searchInput.addEventListener("input", render);
       loadResources();
 
